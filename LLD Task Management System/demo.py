@@ -24,7 +24,7 @@ class TaskManagerSystem_demo:
         task_manager.create_task(task3)
         
         # update a task
-        task2.set_description("repair indicators")
+        task2.set_desc("repair indicators")
         task_manager.update_task(task2)
         
         # search tasks
@@ -34,13 +34,13 @@ class TaskManagerSystem_demo:
             print(task.get_title())
         
         # filter tasks
-        filtered_tasks = task_manager.filter_tasks(TaskStatus.Pending, datetime(1970, 1, 1), datetime.now(), 1)
+        filtered_tasks = task_manager.filter_tasks(TaskStatus.PENDING, datetime(1970, 1, 1), datetime.now(), 1)
         print("Filtered Tasks:")
         for task in filtered_tasks:
             print(task.get_title())
 
         # Mark a task as completed
-        task_manager.mark_completed("1")
+        task_manager.mark_task_as_completed("1")
 
         # get task history for user 
         task_history = task_manager.get_task_history(user1)

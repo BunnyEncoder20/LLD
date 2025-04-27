@@ -16,6 +16,9 @@ class Task:
         self.priority = priority
         self.status = TaskStatus.PENDING
         self.assigned_user = assigned_user
+    
+    def __str__(self):
+        return f"[{self.id}] | [{self.priority}]: {self.title} - {self.desc} | {self.due_date} | Assigned:{self.assigned_user} | Status: {self.status}"
         
     # Getter and setters
     def get_id(self): return self.id

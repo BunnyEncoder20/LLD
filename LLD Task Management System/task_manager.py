@@ -1,6 +1,7 @@
-from datetime import datetime
 from task import Task, TaskStatus
 from user import User
+
+from datetime import datetime
 
 class TaskManager:
     _instance = None
@@ -24,9 +25,9 @@ class TaskManager:
         self._assign_task_to_user(task.get_assigned_user(), task)
         
     def update_task(self, updated_task):
-        existing_task = self.tasks.get(updated_task.get_title())
+        existing_task = self.tasks.get(updated_task.get_id())
         if existing_task:
-            exisiting_task.set_title(updated_task.get_title())
+            existing_task.set_title(updated_task.get_title())
             existing_task.set_desc(updated_task.get_desc())
             existing_task.set_due_date(updated_task.get_due_date())
             existing_task.set_priority(updated_task.get_priority())
@@ -39,6 +40,8 @@ class TaskManager:
                 self._unassign_task_from_user(previously_assigned_user, existing_task)
                 self._assign_task_to_user(new_assigned_user, existing_task)
         else:
+            for key,task in self.tasks.items():
+                print(f"{key}:{task}")
             raise Exception("⚠️ specified task could not be found")
     
     def delete_task(self, task_id):
@@ -74,10 +77,10 @@ class TaskManager:
     def get_task_history(self, user):
         return self.user_tasks.get(user.get_id(), [])
     
-    def _assign_task_to_user(self, user):
+    def _assign_task_to_user(self, user, task):
         self.user_tasks.setdefault(user.get_id(), []).append(task)
         
     def _unassign_task_from_user(self, user, task):
-        tasks = self.iser_tasks.get(user.get_id())
+        tasks = self.user_tasks.get(user.get_id())
         if tasks:
             tasks.remove(task)
